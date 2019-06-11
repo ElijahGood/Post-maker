@@ -45,17 +45,17 @@ try {
                             <form class="form-inlin justify-content-center" action="save_post.php" name="postForm" method="post" enctype="multipart/form-data" onSubmit="return checkForm()">  
                                 <div class="form-group">
                                     <label for="image">Загрузить фото</label>
-                                    <input class="form-control-file" for="postForm" type="file" name="image" id="image"/>
+                                    <input class="form-control-file" for="postForm" type="file" name="image" id="image" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="postname">Заголовок</label>
-                                    <input class="form-control" for="postForm" type="text" name="postname" id="postname"/>
+                                    <input class="form-control" for="postForm" type="text" name="postname" id="postname" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="desc">Описание</label>
                                     <textarea class="form-control" for="postForm" type="text" name="desc" id="desc"></textarea>
                                 </div>
-                                <input type="submit" name="new_photo" id="new_photo" value="Сохранить" class="btn btn-primary btn-lg btn-block" />  
+                                <input type="submit" name="new_photo" id="new_photo" value="Сохранить" class="btn btn-primary btn-lg btn-block" required/>  
                             </form> 
                         </div>
                         <div class="modal-footer">
@@ -71,7 +71,7 @@ try {
                     if ($data) {
                         foreach ($data as $item) {
                             echo '<div class="row mt-3">
-                                    <div class="col-sm">
+                                    <div class="col-auto">
                                         <img src="data:image/jpg;base64,'. base64_encode($item['img']) .'" height="200" width="200" class="img-thumnail" />
                                     </div>
                                     <div class="col-sm">
@@ -89,17 +89,25 @@ try {
  <script>
   
     function checkForm() {
-        let name = document.postForm.postname.value;
-        let postText = document.postForm.desc.value;
+        let name = String(document.postForm.postname.value);
+        let postText = String(document.postForm.desc.value);
         let file = document.postForm.image.value;
+        
         if (file && name && postText) {
+            name.trim();
+            postText.trim();
+
             if (name.length > 55) {
-                alert("Заголовок должен быть не более 55-ти символовю");
+                alert("Заголовок должен быть не более 55-ти символов.");
                 return false;
+            } else if (!/\S/.test(name) || !/\S/.test(postText)) {
+                alert("Одно из полей состоит только из пробелов.");
+                return false;
+            } else {
+                return true;
             }
-            return true;
         } else {
-            alert("Все поля должны быть заполненыю");
+            alert("Все поля должны быть заполнены.");
             return false;
         }
     }

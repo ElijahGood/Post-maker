@@ -18,8 +18,8 @@ try {
 
 if (isset($_POST['new_photo'])){
     $file = file_get_contents($_FILES["image"]["tmp_name"]);
-    $postname = $_POST['postname'];
-    $description = $_POST['desc'];
+    $postname = htmlspecialchars($_POST['postname']);
+    $description = htmlspecialchars($_POST['desc']);
 
     try {
         $stmt = "INSERT INTO posts (img, postname, description) VALUES (:file, :postname, :description)";
