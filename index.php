@@ -68,15 +68,15 @@ try {
             <div class="container">
             
                 <?php
-                    if ($data) {
+                    if (isset($data)) {
                         foreach ($data as $item) {
-                            echo '<div class="row mt-3">
+                            echo '<div class="row mt-3 justify-content-center">
                                     <div class="col-auto">
                                         <img src="data:image/jpg;base64,'. base64_encode($item['img']) .'" height="200" width="200" class="img-thumnail" />
                                     </div>
                                     <div class="col-sm">
-                                        <div class="row"><h3>'.$item['postname'].'</h3></div>
-                                        <div class="row">'.$item['description'].'</div>
+                                        <div class="row justify-content-center"><h3>'.$item['postname'].'</h3></div>
+                                        <div class="row justify-content-center">'.$item['description'].'</div>
                                     </div>
                                 </div>';
                         }

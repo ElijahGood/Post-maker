@@ -34,7 +34,7 @@ if (isset($_POST['new_photo'])){
     
     
     unset($_POST['new_photo']);
-    header('Location: index.php');
+    header('Location: /');
 }
 
 
